@@ -3,6 +3,7 @@
 #include "SlateLearning.h"
 
 #include "RequiredProgramMainCPPInclude.h"
+#include "SButton.h"
 #include "SlateApplication.h"
 #include "StandaloneRenderer.h"
 
@@ -54,8 +55,44 @@ INT32_MAIN_INT32_ARGC_TCHAR_ARGV()
 	
 	FSlateApplication::InitHighDPI(true);
 
-	const TSharedPtr<SWindow> MainWindow = SNew(SWindow).ClientSize(FVector2D(800, 600));
+	SOverlay::FOverlaySlot* Slot;
+	
+	const TSharedPtr<SWindow> MainWindow = SNew(SWindow).ClientSize(FVector2D(800, 600))
+	[
+		SNew(SOverlay) + SOverlay::Slot().HAlign(HAlign_Left).VAlign(VAlign_Top).Expose(Slot)
+		[
+			SNew(SHorizontalBox)
+			// + SHorizontalBox::Slot()
+			// .AutoWidth()
+			// [
+			// 	SNew(SButton)
+			// 	.Text(NSLOCTEXT("L10N", "Key", "Button Content"))
+			// 	.OnClicked(FOnClicked::CreateLambda([]()
+			// 	{
+			// 		UE_LOG(LogSlateLearning, Display, TEXT("SlateLearning:OnClicked"));
+			// 		return FReply::Handled();
+			// 	}))
+			// ]
+		]
+		
+	];
+	
+	SWidget& SlotWidget = Slot->GetWidget().Get();
+	SHorizontalBox& HorizontalBox = static_cast<SHorizontalBox&>(SlotWidget);
 
+	for (int i = 0; i < 5; ++i)
+	{
+		HorizontalBox.AddSlot()
+		[
+			SNew(SButton).Text(FText::Format(NSLOCTEXT("L10N", "Key", "Button{0}"), FText::AsNumber(i)))
+			.OnClicked(FOnClicked::CreateLambda([i]()
+			{
+				UE_LOG(LogSlateLearning, Display, TEXT("SlateLearning:OnClicked{%d}"),i);
+				return FReply::Handled();
+			}))
+		];
+	}
+	
 	FSlateApplication::Get().AddWindow(MainWindow.ToSharedRef());
 
 	while (!IsEngineExitRequested())
