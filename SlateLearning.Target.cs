@@ -23,10 +23,13 @@ public class SlateLearningTarget : TargetRules
 
 		// Currently this app is not linking against the engine, so we'll compile out references from Core to the rest of the engine
 		bCompileAgainstEngine = false;
-		bCompileAgainstCoreUObject = false;
-		bCompileAgainstApplicationCore = false;
+		bCompileAgainstCoreUObject = true;
+		bCompileAgainstApplicationCore = true;
 		bCompileICU = false;
 
+		bOverrideBuildEnvironment = true;
+		AdditionalCompilerArguments = "/std:c++20";
+		
 		// to build with automation tests:
 		// bForceCompileDevelopmentAutomationTests = true;
 

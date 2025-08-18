@@ -10,6 +10,10 @@ public class SlateLearning : ModuleRules
 		PrivateDependencyModuleNames.Add("Core");
 		PrivateDependencyModuleNames.Add("Projects");
 
+		PublicIncludePaths.Add("Programs/SlateLearning/Public");
+		PublicIncludePaths.Add("Programs/SlateLearning/Private");
+		
+		PrivateDependencyModuleNames.AddRange(new string[] { "AppFramework", "Core","ApplicationCore","Projects", "Slate", "SlateCore","StandaloneRenderer" });
 		// to link with CoreUObject module:
 		// PrivateDependencyModuleNames.Add("CoreUObject");
 
