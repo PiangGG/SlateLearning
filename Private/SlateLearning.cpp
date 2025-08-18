@@ -2,6 +2,7 @@
 
 #include "SlateLearning.h"
 
+#include "CustomWidget.h"
 #include "RequiredProgramMainCPPInclude.h"
 #include "SButton.h"
 #include "SlateApplication.h"
@@ -62,6 +63,10 @@ INT32_MAIN_INT32_ARGC_TCHAR_ARGV()
 		SNew(SOverlay) + SOverlay::Slot().HAlign(HAlign_Left).VAlign(VAlign_Top).Expose(Slot)
 		[
 			SNew(SHorizontalBox)
+			+ SHorizontalBox::Slot()
+			[
+				SNew(SCustomWidget).FloatValue(9.0f).IntValue(1)
+			]
 			// + SHorizontalBox::Slot()
 			// .AutoWidth()
 			// [
